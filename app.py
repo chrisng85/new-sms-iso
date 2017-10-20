@@ -14,7 +14,7 @@ client = Client(account_sid, auth_token)
 
 @app.route('/')
 def hello_world():
-    return render_template('index.html')
+    return '404'
 
 
 @app.route('/sms')
