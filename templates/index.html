@@ -62,7 +62,7 @@
             reader.onload = function(f) {
                 console.log('reader on load');
                 var rows = f.target.result.split(/[\r\n|\n]+/);
-                document.getElementById('fileInfo').innerHTML = "<p>"+file.size+" Bytes | "+(rows.length-1)+" Contacts.";
+                document.getElementById('fileInfo').innerHTML = "<p>"+file.size+" Bytes | "+rows.length+" Contacts.";
                 document.getElementById('contactTable').innerText = f.target.result;
             }
             reader.onerror = function(event) {
