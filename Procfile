@@ -1,1 +1,1 @@
-web: gunicorn app:sms-bulk.py
+web: gunicorn app:app
