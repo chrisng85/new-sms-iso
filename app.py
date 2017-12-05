@@ -26,6 +26,7 @@ def sms_sender():
 def send_sms():
     if request.method == 'POST':
         t = request.form["smsInput"].encode('utf-8')
+        m = request.form["mediaURL"]
         f = request.files["fileUpload"]
         file_data = f.read().decode("utf-8")
         lines = file_data.split("\n")
@@ -34,7 +35,8 @@ def send_sms():
             client.api.account.messages.create(
                 from_="+16782646688",
                 to=field[0],
-                body=t)
+                body=t,
+                media_url=m)
     return 'sent'
 
 
