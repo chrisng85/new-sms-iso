@@ -21,11 +21,28 @@ def hello_world():
 def sms_sender():
     return render_template('index.html')
 
+@app.route('/mms')
+def mms_sender():
+    return render_template('index2.html')
 
-@app.route('/send', methods=['GET', 'POST'])
+@app.route('/sendsms', methods=['GET', 'POST'])
 def send_sms():
     if request.method == 'POST':
         t = request.form["smsInput"].encode('utf-8')
+        f = request.files["fileUpload"]
+        file_data = f.read().decode("utf-8")
+        lines = file_data.split("\n")
+        for line in lines:
+            field = line.split(",")
+            client.api.account.messages.create(
+                from_="+16782646688",
+                to=field[0],
+                body=t)
+    return 'sent'
+
+@app.route('/sendmms', methods=['GET', 'POST'])
+def send_mms():
+    if request.method == 'POST':
         m = request.form["mediaURL"].encode('utf-8')
         f = request.files["fileUpload"]
         file_data = f.read().decode("utf-8")
@@ -35,10 +52,9 @@ def send_sms():
             client.api.account.messages.create(
                 from_="+16782646688",
                 to=field[0],
-                body=t,
+                body='',
                 media_url=m)
     return 'sent'
-
 
 if __name__ == '__main__':
     app.run()
