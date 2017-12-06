@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SMS Bulk Sender</title>
+    <link href="../static/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../static/narrow-jumbotron.css" rel="stylesheet">
+
+    <link href="../static/app.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="header clearfix">
+
+        <h3 class="text-muted">MMS BULK SENDER</h3>
+      </div>
+
+        <div class="jumbotron">
+            <form method="post" action="{{ SERVER_NAME }} sendmms" enctype="multipart/form-data">
+                <input type="text" id="mediaURL" name="mediaURL" placeholder="Insert your media link here.." required="required">
+                <p class="lead"></p>
+                <input id="fileUpload" name="fileUpload" type="file" accept=".csv" required="required" onchange="onFileUpload()">
+                <div id="fileInfo"></div>
+                <p class="lead"></p>
+                <button type="submit">SEND</button>
+            </form>
+        </div>
+
+        <div class="row marketing">
+            <div class="col-lg-3"></div>
+
+            <div id="contactTable" class="col-lg-6">
+
+            </div>
+            <div class="col-lg-3"></div>
+
+        </div>
+
+        <footer class="footer">
+            <p>&copy; cor3 2017 - Narrow Jumbotron template from GetBootstrap</p>
+        </footer>
+
+    </div>
+    
+    <script>
+    
+        function onFileUpload() {
+            console.log('file uploaded');
+            var file = document.getElementById('fileUpload').files[0];
+            var reader = new FileReader();
+            reader.onload = function(f) {
+                console.log('reader on load');
+                var rows = f.target.result.split(/[\r\n|\n]+/);
+                document.getElementById('fileInfo').innerHTML = "<p>"+file.size+" Bytes | "+rows.length+" Contacts.";
+                document.getElementById('contactTable').innerText = f.target.result;
+            }
+            reader.onerror = function(event) {
+                console.log('File could not be read! Code ' + event.target.error.code);
+            }
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html>
