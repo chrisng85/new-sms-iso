@@ -26,7 +26,7 @@ def sms_sender():
 def send_sms():
     if request.method == 'POST':
         t = request.form["smsInput"].encode('utf-8')
-        m = request.form["mediaURL"]
+        m = request.form["mediaURL"].encode('utf-8')
         f = request.files["fileUpload"]
         file_data = f.read().decode("utf-8")
         lines = file_data.split("\n")
