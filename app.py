@@ -33,11 +33,14 @@ def send_sms():
         file_data = f.read().decode("utf-8")
         lines = file_data.split("\n")
         for line in lines:
-            field = line.split(",")
-            client.api.account.messages.create(
-                from_="+16782646688",
-                to=field[0],
-                body=t)
+            try:
+                field = line.split(",")
+                client.api.account.messages.create(
+                    from_="+16782646688",
+                    to=field[0],
+                    body=t)
+            except Exception:
+                pass
     return 'sent'
 
 @app.route('/sendmms', methods=['GET', 'POST'])
@@ -48,12 +51,15 @@ def send_mms():
         file_data = f.read().decode("utf-8")
         lines = file_data.split("\n")
         for line in lines:
-            field = line.split(",")
-            client.api.account.messages.create(
-                from_="+16782646688",
-                to=field[0],
-                body='',
-                media_url=m)
+            try:
+                field = line.split(",")
+                client.api.account.messages.create(
+                    from_="+16782646688",
+                    to=field[0],
+                    body='',
+                    media_url=m)
+            except Exception:
+                pass
     return 'sent'
 
 if __name__ == '__main__':
