@@ -1,14 +1,15 @@
 from flask import Flask, render_template, request
 from twilio.rest import Client
 import csv
+import os
 
 
 app = Flask(__name__)
 
 # Your Account SID from twilio.com/console
-account_sid = "ACcc6120accb16706262efc526616a6d5e"
+account_sid = os.environ.get('SID')
 # Your Auth Token from twilio.com/console
-auth_token = "86cea1d878e10d05ce9b7a1018db1bf4"
+auth_token = os.environ.get('TOKEN')
 client = Client(account_sid, auth_token)
 
 
