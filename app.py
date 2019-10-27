@@ -12,6 +12,8 @@ account_sid = os.environ.get('SID')
 auth_token = os.environ.get('TOKEN')
 client = Client(account_sid, auth_token)
 
+# Setup phone number to send sms and mms
+from_number = os.environ.get('NUMBER')
 
 @app.route('/')
 def hello_world():
@@ -37,7 +39,7 @@ def send_sms():
             try:
                 field = line.split(",")
                 client.api.account.messages.create(
-                    from_="+16782646688",
+                    from_=from_number,
                     to=field[0],
                     body=t)
             except Exception:
